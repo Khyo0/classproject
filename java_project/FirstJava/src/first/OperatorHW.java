@@ -212,7 +212,7 @@ a>b>c 가 참이면 true 아니면 false를 출력하는 프로그램 작성
  */
 	/*	char ch = 'z';
 
-		boolean b = ((ch>='0' && ch<='z')||(ch>='A' && ch<='z')||(ch>='0'&&ch<='9'));
+		boolean b = ((ch>='a' && ch<='z')||(ch>='A' && ch<='z')||(ch>='0'&&ch<='9'));
 
 		System.out.println(b);
 		
