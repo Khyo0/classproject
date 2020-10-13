@@ -1,6 +1,6 @@
 package first;
 
-public class ArrayTest {
+public class ArrayTest1 {
 
 	public static void main(String[] args) {
 		
