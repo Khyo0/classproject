@@ -14,7 +14,7 @@ public class ArrayHW {
 	
 	public static int miniValue(int[] arr){
 		int min = arr[0];
-		for(int i=0; i<arr.length; i++) {
+		for(int i=0; i<arr.length; i++) {	// for문으로 최소값 구하기
 			if(arr[i]<min) {
 				min = arr[i];
 			}
@@ -23,7 +23,7 @@ public class ArrayHW {
 	}
 	public static int maxValue(int[] arr){
 		int max = arr[0];
-		for(int i=0; i<arr.length; i++) {
+		for(int i=0; i<arr.length; i++) {	// for문으로 최대값 구하기
 			if(arr[i]>max) {
 				max = arr[i];
 			}
@@ -43,54 +43,47 @@ public class ArrayHW {
         }
 }
 	
-// 문제 3 -> 미완성
-	public static void moveValue(int[][]tmp) {
-		int[][] arr = null;
-		int[] t = null;
-		for (int i=0; i<tmp.length; i++) {
-        	for (int j=0; j<tmp[i].length-1; j++) {
-        		tmp[i][j] = t[i];
-        		}
-        	}
-		for(int i=0; i<tmp.length;i++) {
-			t[i] = t[i+1];
-		}
-		
-/*		for (int i=0; i<tmp.length; i++) {
-        	for (int j=0; j<tmp[i].length-1; j++) {
-        		tmp[i+1][j+1] = arr[i][j];
-        		arr[i][j] = tmp[i][j];
-        		tmp[i][j] = tmp[i+1][j+1];
-        		
-        	}
-		
-		}
-*/	}
+// 문제 3
+	// 총 N행으로 이뤄진 2차원 배열이 존재한다면,
+	// 메서드 호출 시, 1행은 2행으로 이동이 이뤄져야한다.
+	//  가로, 세로길이에 상관 없이 동작
 	
+	public static void moveValue(int[][]arr) {
+		int[][] tmp = new int[arr.length][arr[0].length];
+			
+		for(int i=0; i<tmp.length-1; i++) {
+
+			tmp[i] = arr[i];
+			arr[i] = arr[i+1];
+			arr[i+1] = tmp[i];
+
+		}
+	}
 	
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System. in);
 
-		// 문제 1
+// 문제 1
 		System.out.println("문제 1");
 		int[] hw = new int[10];
 		
 		System.out.println("값을 입력하세요. ");
-		
+		// 값 입력 받기
 		for(int i=0; i<hw.length; i++) {
 			hw[i] = sc.nextInt();
 		}
 		System.out.println("최소값 : " + miniValue(hw));
 		System.out.println("최대값 : " + maxValue(hw));
 		
-		//문제 2
+//문제 2
 		System.out.println("문제 2");
 		int[][] hw2 = {
 				{1, 2, 3},
 				{4, 5 ,6},
 				{7, 8, 9}
 		};
+		// 원본 값 출력
 		for(int i=0; i<hw2.length; i++){
 			for(int j=0; j<hw2[i].length; j++) {
 				System.out.print(hw2[i][j] + "\t");
@@ -98,7 +91,7 @@ public class ArrayHW {
 			System.out.println();
 		}
 		System.out.println("====================");
-		addOneDArr(hw2, 5);
+		addOneDArr(hw2, 5);	// 5씩 증가
 		for(int i=0; i<hw2.length; i++){
 			for(int j=0; j<hw2[i].length; j++) {
 				System.out.print(hw2[i][j] + "\t");
@@ -106,13 +99,14 @@ public class ArrayHW {
 			System.out.println();
 		}
 		
-		// 문제 3
+// 문제 3
 		System.out.println("문제 3");
 		int [][] hw3 = {
 				{1, 2, 3},
 				{4, 5 ,6},
 				{7, 8, 9}
 		};
+		// 원본 값 출력
 		for(int i=0; i<hw3.length; i++){
 			for(int j=0; j<hw3[i].length; j++) {
 				System.out.print(hw3[i][j] + "\t");
