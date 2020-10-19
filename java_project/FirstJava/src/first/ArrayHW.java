@@ -53,12 +53,18 @@ public class ArrayHW {
 			
 		for(int i=0; i<tmp.length-1; i++) {
 
-			tmp[i] = arr[i];
+			tmp[i+1] = arr[i];
 			arr[i] = arr[i+1];
-			arr[i+1] = tmp[i];
+			arr[i+1] = tmp[i+1];
 
 		}
 	}
+	
+	/* 반대 방향
+	 	tmp[i] = arr[i];
+		arr[i] = arr[i+1];
+		arr[i+1] = tmp[i];
+	 */
 	
 	public static void main(String[] args) {
 		
