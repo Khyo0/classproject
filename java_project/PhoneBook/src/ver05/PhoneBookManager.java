@@ -1,4 +1,4 @@
-package ver04;
+package ver05;
 
 import ver03.Util;
 
@@ -11,10 +11,18 @@ public class PhoneBookManager {
 	private PhoneInfor[] pBook;	// 전화번호 정보를 저장할 배열
 	private int cnt;			// 배열에 저장된 요소의 개수, 배열의 index
 	
-	// 생성자
-	PhoneBookManager(int num){
+	// 생성자 : 싱글톤 처리 -> 외부에서 인스턴스 생성을 금지
+	private PhoneBookManager(int num){
 		pBook = new PhoneInfor[num];	// 생성자의 매개변수의 인자를 전달 받아 배열 생성
 		cnt = 0;
+	}
+	
+	// 내부에서 인스터스 생성
+	private static PhoneBookManager manager = new PhoneBookManager(100);
+	
+	// 외부에서 참조변수를 받을 수 있는 메서드
+	public static PhoneBookManager getInstance() {
+		return manager;
 	}
 	
 	// 정보 저장
@@ -39,16 +47,16 @@ public class PhoneBookManager {
 		}
 		
 		System.out.println("어떤 정보를 입력하시겠습니까?");
-		System.out.println(" 1. 기본");
-		System.out.println(" 2. 대학");
-		System.out.println(" 3. 회사");
-		System.out.println(" 4. 동호회");
+		// System.out.println(" 1. 기본"); // 수상클래스 -> 인스턴스 생성불가
+		System.out.println(Menu.UNIV+". 대학");
+		System.out.println(Menu.COM+". 회사");
+		System.out.println(Menu.CAFE+". 동호회");
 		
 		int select = Util.sc.nextInt();
 		
 		Util.sc.nextLine();
 		
-		if( !(select>0 && select<5) ) {
+		if( !(select>0 && select<4) ) {
 			System.out.println("메뉴 선택이 옳바르지 않습니다.");
 			System.out.println("초기메뉴로 이동합니다. ");
 			return;
@@ -65,11 +73,11 @@ public class PhoneBookManager {
 		String email = Util.sc.nextLine();
 
 		switch(select) {
-		case 1 :
-			// 인스턴스 생성 -> 배열에 저장
-			addInfor(new PhoneInfor(name, pNum, addr, email));
-			break;
-		case 2 :
+//		case 1 :
+//			// 인스턴스 생성 -> 배열에 저장
+//			addInfor(new PhoneInfor(name, pNum, addr, email));
+//			break;
+		case Menu.UNIV :
 			// 추가 정보 받고 -> 인스턴스 생성 -> 배열에 저장
 			// 전공, 학년
 			System.out.println("전공 >> ");
@@ -80,7 +88,7 @@ public class PhoneBookManager {
 			addInfor(new UnivPhoneInfor(name, pNum, addr, email, major, grade));
 			
 			break;
-		case 3 :
+		case Menu.COM :
 			// 추가 정보 받고 -> 인스턴스 생성 -> 배열에 저장
 			// 회사이름
 			System.out.println("회사 이름 >> ");
@@ -89,7 +97,7 @@ public class PhoneBookManager {
 			addInfor(new CompanyPhoneInfor(name, pNum, addr, email, company));
 			
 			break;
-		case 4 :
+		case Menu.CAFE :
 			// 추가 정보 받고 -> 인스턴스 생성 -> 배열에 저장
 			// 동호회 이름, 닉네임
 			System.out.println("동호회 이름 >> ");
