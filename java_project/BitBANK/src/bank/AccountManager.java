@@ -225,6 +225,48 @@ public class AccountManager implements Util{
 
 	}
 
+	public void membership() {
+		BankMemberDAO bank = new BankMemberDAO();
+
+		System.out.println("이름을 입력하세요 : ");
+		String name = SC.nextLine();
+		System.out.println("비밀번호를 입력하세요 : ");
+		String password = SC.nextLine();
+		if (!(bank.nameCheck(name)) || !(bank.passwordCheck(password))) {
+			System.out.println("정보가 일치하지 않습니다.");
+			System.out.println("다시 입력해주세요.");
+		} else {
+			for (int i = 0; i < accountArray.length; i++) {
+				Account account = accountArray[i];
+				if (account.getAccountName() == name) {
+					if (account.getBalance() < 10000 || account.getTotalTrans() < 3) {
+						String membership = "Silver";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((10000 <= account.getBalance() && account.getBalance() < 30000)
+							|| (3 <= account.getBalance() && account.getBalance() < 6)) {
+						String membership = "Gold";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((30000 <= account.getBalance() && account.getBalance() < 60000)
+							|| (6 <= account.getBalance() && account.getTotalTrans() < 9)) {
+						String membership = "Dia";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((60000 <= account.getBalance() && account.getBalance() >= 60000)
+							|| (9 <= account.getBalance() && account.getTotalTrans() >= 9)) {
+						String membership = "Platinum";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					}
+
+					break;
+				}
+
+				else {
+					System.out.println("비밀번호가 일치하지 않습니다.");
+					System.out.println("다시 입력해 주십시오.");
+				}
+			}
+		}
+	}
+
 	//getter & setter 메서드
 	public String getAccountNumber() {
 		return AccountNumber;
