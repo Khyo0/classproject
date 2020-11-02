@@ -45,7 +45,7 @@ public class AccountManager implements Util{
 			}
 			System.out.println("============================================================================");
 			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + accountArray[0].getAccountName() + "] , [계좌 번호: " + accountArray[0].getAccountNumber() + "] 입니다.");    
+			System.out.println("[계좌 주: " + accountArray[i].getAccountName() + "] , [계좌 번호: " + accountArray[i].getAccountNumber() + "] 입니다.");    
 			System.out.println("========================================");
 			System.out.println("※ 위 내용을 확인 바랍니다. \r");
 			return;
@@ -63,26 +63,34 @@ public class AccountManager implements Util{
 
 	// 계좌 조회 
 	public void AccountCheck() {
-		String accountName;  //조회할 계좌주
-		Account account;     //등록된 계좌
 
 		System.out.println("[   계 좌 조 회    ]");
-		if (accountArray[0] == null) {
-			System.out.println("※ 등록된 계좌가 없습니다.");
+		System.out.print("계좌 번호: ");
+		String number = SC.next();
+		Account account = FindAccount_Nu(number);
+		if(FindAccount_Nu(number) == null) {
+			System.out.println("존재하지 않는 계좌입니다.");
+			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
 			return;
 		}
-		System.out.print("조회하실 계좌주 : ");
-		accountName = SC.nextLine();
+		System.out.print("계좌주 : ");
+		String accountName = SC.next();
 		account = FindAccount_Na(accountName);
 		if (!accountName.equals(account.getAccountName())) {
 			System.out.println();
 			System.out.println("※ 등록된 정보와 일치하지 않습니다.");
 			System.out.println("※ 확인 후 다시 이용바랍니다.");
 			return;
-		} try {
-			System.out.print((new StringBuilder(String.valueOf(accountName))).append(" 비밀번호 : ").toString());
-			String Password = SC.nextLine();
-			if (Password.equals(account.getPassword())) {
+		}
+		System.out.println("비밀번호 입력 : ");
+		String password = SC.next();
+		if (account != null) {
+			if (!password.equals(account.getPassword())) {
+				System.out.println("비밀번호가 일치하지 않습니다.");
+				System.out.println("확인 후 이용 바랍니다.");
+				System.out.println();
+			} else {
 				for (int i = 0; accountArray[i] != null; i++)
 					if (account.getAccountName().equals(accountArray[i].getAccountName())) {
 						Account AccountCheck = accountArray[i];
@@ -96,17 +104,11 @@ public class AccountManager implements Util{
 							System.out.println("=========================");
 							System.out.println("※ 등록된 계좌 정보를 확인 하였습니다.\r");
 						}
+
 					}
-			} else if (!Password.equals(account.getPassword())) {
-				System.out.println("※ 비밀번호가 일치 하지 않습니다.");
-				System.out.println("※ 확인 후 다시 이용 바랍니다.");
-				return;
 			}
-		} catch (Exception e) {
-			System.out.println("등록된 계좌 정보가 존재하지 않습니다.\r");
-		} 
-		return;
-	}
+		}
+	} 
 
 	public static Account FindAccount_Na(String AccountName) {
 		for (int i = 0; accountArray[i] != null; i++)
