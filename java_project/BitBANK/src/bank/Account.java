@@ -20,6 +20,12 @@ public class Account {
 		this.totalTrans = totalTrans;
 	}
 
+	@Override
+	   public String toString() {
+	      // TODO Auto-generated method stub
+	      return super.toString();
+	   } 
+	
 	//getter & setter 메서드
 	public String getName() {
 		return name;
