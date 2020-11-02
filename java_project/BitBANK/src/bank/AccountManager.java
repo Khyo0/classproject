@@ -33,15 +33,17 @@ public class AccountManager implements Util{
 			System.out.println("새로 만드실 계좌번호를 입력해주세요.");
 			System.out.println("계좌 번호 :  ");
 			String AccountNumber = SC.next();
+			Account account = FindAccount_Nu(AccountNumber);
+			SC.nextLine();
 			if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
 				System.out.println("※ 계좌번호가 중복됩니다. ");
 				return;
 			} else {
 				System.out.println("계좌주 : ");
-				String AccountName = SC.next();
+				String AccountName = SC.nextLine();
 				System.out.print("비밀번호 : "); //수정 필요 __숫자 4자리 입력
-				String Password = SC.next();
-				accountArray[i] = new Account(AccountNumber, AccountName, Password, balance, totalTrans);
+				String Password = SC.nextLine();
+				addInfor(new Account(AccountNumber, AccountName, Password));
 			}
 			System.out.println("============================================================================");
 			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
@@ -98,9 +100,9 @@ public class AccountManager implements Util{
 							System.out.println("=========================");
 							System.out.println((new StringBuilder("     ")).append(AccountCheck.getAccountName()).append(" 님의 계좌 정보").toString());
 							System.out.println("-------------------------");
-							System.out.println((new StringBuilder("조회하신 계좌주\t:")).append(AccountCheck.getAccountName()).toString());
-							System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 계좌번호\t:").append(AccountCheck.getAccountNumber()).toString());
-							System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 잔 액 \t:").append(AccountCheck.getBalance()).append(" 원").toString());
+							System.out.println((new StringBuilder("조회하신 계좌주\t: ")).append(AccountCheck.getAccountName()).toString());
+							System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 계좌번호\t: ").append(AccountCheck.getAccountNumber()).toString());
+							System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 잔 액 \t: ").append(AccountCheck.getBalance()).append(" 원").toString());
 							System.out.println("=========================");
 							System.out.println("※ 등록된 계좌 정보를 확인 하였습니다.\r");
 						}
