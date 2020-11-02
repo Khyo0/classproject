@@ -7,34 +7,21 @@ public class Transaction implements Util {
 	private String transactionTime; // 거래시간
 	private String transType; // 입금 or 출금 or 이체
 	private long amount; // 거래금액
-	
-	// 내부에서 인스턴스 생성
-	private static Transaction t = new Transaction();
 
-	// 생성자 호출 제한
-	private Transaction() {
-
-	}
-
-	// 외부에서 참조변수를 받을 수 있는 메서드
-	public static Transaction getInstance() {
-		return t;
-	}
-	
 	Transaction(String type, long money){
 		Calendar c = Calendar.getInstance();
 		transactionDate = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DATE);
 		transactionTime = c.get(Calendar.HOUR)+"시 "+c.get(Calendar.MINUTE)+"분 "+c.get(Calendar.SECOND)+"초";
 		transType = type; //거래종류
 		amount = money; //거래량
-		
+
 	}
 
 	public void trans() {
 
 		AccountManager manage = AccountManager.getInstance();
-		
-// 계좌번호, 비밀번호 확인 어느 클래스에서 할지 정하고 고치기!!
+
+		// 계좌번호, 비밀번호 확인 어느 클래스에서 할지 정하고 고치기!!
 		System.out.print("계좌 번호: ");
 		String Accountnumber = SC.next();
 		Account account = FindAccount_Nu(Accountnumber);
@@ -56,8 +43,8 @@ public class Transaction implements Util {
 			}
 		}
 	}
-	
-//고치기
+
+	//고치기
 	private static Account AccountArray[] = new Account[100];	// 베열 생성
 	private static Account FindAccount_Nu(String AccountNumber) {
 		for (int i = 0; AccountArray[i] != null; i++)
@@ -65,42 +52,42 @@ public class Transaction implements Util {
 				return AccountArray[i];
 		return null;
 	}
-	
-		public String toString() {
-			return transType;
-		}
 
-		public String getTransactionDate() {
-			return transactionDate;
-		}
-
-		public void setTransactionDate(String transactionDate) {
-			this.transactionDate = transactionDate;
-		}
-
-		public String getTransactionTime() {
-			return transactionTime;
-		}
-
-		public void setTransactionTime(String transactionTime) {
-			this.transactionTime = transactionTime;
-		}
-
-		public String getTransType() {
-			return transType;
-		}
-
-		public void setTransType(String transType) {
-			this.transType = transType;
-		}
-
-		public long getAmount() {
-			return amount;
-		}
-
-		public void setAmount(long amount) {
-			this.amount = amount;
-		}
-
-
+	public String toString() {
+		return transType;
 	}
+
+	public String getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(String transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+	public String getTransactionTime() {
+		return transactionTime;
+	}
+
+	public void setTransactionTime(String transactionTime) {
+		this.transactionTime = transactionTime;
+	}
+
+	public String getTransType() {
+		return transType;
+	}
+
+	public void setTransType(String transType) {
+		this.transType = transType;
+	}
+
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+
+
+}
