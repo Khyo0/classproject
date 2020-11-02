@@ -1,18 +1,14 @@
 package bank;
 
-import java.util.Calendar;
-
 public class Transaction implements Util {
-	private String transactionDate; // 거래일자
-	private String transactionTime; // 거래시간
 	private String transType; // 입금 or 출금 or 이체
 	private long amount; // 거래금액
 
 	// 내부에서 인스턴스 생성
-	private static Transaction t = new Transaction();
+	private static Transaction t = new Transaction(100);
 
 	// 생성자 호출 제한
-	private Transaction() {
+	private Transaction(int i) {
 
 	}
 
@@ -21,20 +17,15 @@ public class Transaction implements Util {
 		return t;
 	}	
 
-	AccountManager manager = AccountManager.getInstance();
-
-	Transaction(String type, long money){
-		Calendar c = Calendar.getInstance();
-		transactionDate = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DATE);
-		transactionTime = c.get(Calendar.HOUR)+"시 "+c.get(Calendar.MINUTE)+"분 "+c.get(Calendar.SECOND)+"초";
-		transType = type; //거래종류
-		amount = money; //거래량
+	public Transaction(String type, long money){
+		
+		this.transType = type; //거래종류
+		this.amount = money; //거래금액
 
 	}
 
 	public void trans() {
-
-		AccountManager manage = AccountManager.getInstance();
+		AccountManager manager = AccountManager.getInstance();
 
 		System.out.println("[===거래내역 조회===]");
 		System.out.print("계좌 번호: ");
@@ -55,34 +46,19 @@ public class Transaction implements Util {
 				System.out.println();
 			} else {
 				System.out.println("고객님의 계좌 : "+ Accountnumber + "의 거래내역입니다.");
-				Transaction ts[] = manage.getTransaction();
-				for (int i = 0; i < manage.getTotalTrans(); i++) {
-					System.out.println(ts[i].getAmount() + " 원" +  ts[i].getTransType() + "s		거래일자 : " + ts[i].getTransactionDate() + "거래시간 : " + ts[i].getTransactionTime());
+				Transaction ts[] = manager.getTransaction();
+				for (int i = 0; i < manager.getTotalTrans(); i++) {
+					System.out.println(ts[i].getAmount() + " 원" +  ts[i].getTransType());
 				}
-				System.out.println("잔액 : " + manage.getBalance());
+				System.out.println("계좌 잔액 : " + account.getBalance());
 				System.out.println();
 			}
 		}
 	}
 
+	//getter & setter 메서드
 	public String toString() {
 		return transType;
-	}
-
-	public String getTransactionDate() {
-		return transactionDate;
-	}
-
-	public void setTransactionDate(String transactionDate) {
-		this.transactionDate = transactionDate;
-	}
-
-	public String getTransactionTime() {
-		return transactionTime;
-	}
-
-	public void setTransactionTime(String transactionTime) {
-		this.transactionTime = transactionTime;
 	}
 
 	public String getTransType() {

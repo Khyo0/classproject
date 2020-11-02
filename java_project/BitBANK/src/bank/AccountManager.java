@@ -5,10 +5,9 @@ public class AccountManager implements Util{
 	private String AccountNumber;	// 계좌번호
 	private String password;	// 계좌 비밀번호
 	private long balance;	// 잔액
-	//	private static Account AccountArray[] = new Account[100];	// 베열 생성
 	private static Account accountArray[] = new Account[100]; // 계좌생성 배열
 	private int cnt; //배열에 저장된 요소의 개수
-	private Transaction[] transactions;	// 거래내역
+	private static Transaction transaction[] = new Transaction[100];	// 거래내역
 	private int totalTrans;	// 거래횟수
 
 	private AccountManager(int num) {
@@ -55,7 +54,7 @@ public class AccountManager implements Util{
 	}
 
 	// 검색된 계좌 객체를 반환하는 메서드
-	public static Account FindAccount_Nu(String AccountNumber) {
+	public Account FindAccount_Nu(String AccountNumber) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountNumber().equals(AccountNumber)) //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하면
 				return accountArray[i];
@@ -122,7 +121,7 @@ public class AccountManager implements Util{
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(AccountNumber) == null) {
+		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
 			System.out.println();
@@ -140,7 +139,7 @@ public class AccountManager implements Util{
 				long money = SC.nextLong();
 				System.out.println();
 				account.setBalance(account.getBalance() + money);	// 잔액+입금 금액
-				transactions[totalTrans++] = new Transaction("입금", money);	// 거래내역 추가
+				transaction[totalTrans++] = new Transaction("입금", money);	// 거래내역 추가
 				System.out.println("계좌에 " + money + "원이 입금되었습니다.");
 				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
 				System.out.println();
@@ -154,7 +153,7 @@ public class AccountManager implements Util{
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(AccountNumber) == null) {
+		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
 			System.out.println();
@@ -175,7 +174,7 @@ public class AccountManager implements Util{
 				System.out.println();
 			} else {
 				account.setBalance(account.getBalance() - money);	// 잔액-출금 금액
-				transactions[totalTrans++] = new Transaction("출금", money);	// 거래내역 추가
+				transaction[totalTrans++] = new Transaction("출금", money);	// 거래내역 추가
 				System.out.println("계좌에서 " + money + "원이 출금되었습니다.");
 				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
 				System.out.println();
@@ -190,7 +189,7 @@ public class AccountManager implements Util{
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(AccountNumber) == null) {
+		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
 			System.out.println();
@@ -219,19 +218,20 @@ public class AccountManager implements Util{
 			}
 			account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
 			account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
-			transactions[totalTrans++] = new Transaction("이체", money);	// 거래내역 추가
+			transaction[totalTrans++] = new Transaction("이체", money);	// 거래내역 추가
 			System.out.println("현재 잔고는 " + account.getBalance() + "원 입니다.\r");
 			System.out.println();
 		}
 
 	}
 
+	//getter & setter 메서드
 	public String getAccountNumber() {
 		return AccountNumber;
 	}
 
-	public void setAccountNumber(String AccountNumber) {
-		this.AccountNumber = AccountNumber;
+	public void setAccountNumber(String accountNumber) {
+		AccountNumber = accountNumber;
 	}
 
 	public String getPassword() {
@@ -250,8 +250,28 @@ public class AccountManager implements Util{
 		this.balance = balance;
 	}
 
-	public Transaction[] getTransaction() {
-		return transactions;
+	public static Account[] getAccountArray() {
+		return accountArray;
+	}
+
+	public static void setAccountArray(Account[] accountArray) {
+		AccountManager.accountArray = accountArray;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public static Transaction[] getTransaction() {
+		return transaction;
+	}
+
+	public static void setTransaction(Transaction[] transaction) {
+		AccountManager.transaction = transaction;
 	}
 
 	public int getTotalTrans() {
@@ -262,4 +282,11 @@ public class AccountManager implements Util{
 		this.totalTrans = totalTrans;
 	}
 
+	public static AccountManager getManager() {
+		return manager;
+	}
+
+	public static void setManager(AccountManager manager) {
+		AccountManager.manager = manager;
+	}
 }

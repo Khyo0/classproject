@@ -21,7 +21,6 @@ public class Account {
 	}
 
 	//getter & setter 메서드
-
 	public String getName() {
 		return name;
 	}
