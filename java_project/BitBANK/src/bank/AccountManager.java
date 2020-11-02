@@ -125,6 +125,7 @@ public class AccountManager implements Util{
 		if(FindAccount_Nu(AccountNumber) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
 			return;
 		}
 		System.out.println("비밀번호 입력 : ");
@@ -142,10 +143,8 @@ public class AccountManager implements Util{
 				transactions[totalTrans++] = new Transaction("입금", money);	// 거래내역 추가
 				System.out.println("계좌에 " + money + "원이 입금되었습니다.");
 				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
+				System.out.println();
 			}
-		} else {
-			System.out.println("존재하지 않는 계좌입니다.");
-			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
 		}
 	}
 
@@ -158,6 +157,7 @@ public class AccountManager implements Util{
 		if(FindAccount_Nu(AccountNumber) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
 			return;
 		}
 		System.out.println("비밀번호 입력 : ");
@@ -165,17 +165,20 @@ public class AccountManager implements Util{
 		if (!password.equals(account.getPassword())) {
 			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
 			System.out.println("확인 후 이용 바랍니다.");
+			System.out.println();
 		}
 		if (account != null) {
 			System.out.print("출금 금액: \r");
 			long money = SC.nextLong();
 			if (money > account.getBalance()) {
 				System.out.println("잔액이 부족하여 출금할 수 없습니다.");
+				System.out.println();
 			} else {
 				account.setBalance(account.getBalance() - money);	// 잔액-출금 금액
 				transactions[totalTrans++] = new Transaction("출금", money);	// 거래내역 추가
 				System.out.println("계좌에서 " + money + "원이 출금되었습니다.");
 				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
+				System.out.println();
 			}
 		}
 
@@ -190,6 +193,7 @@ public class AccountManager implements Util{
 		if(FindAccount_Nu(AccountNumber) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
 			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
 			return;
 		}
 		System.out.println("비밀번호 입력 : ");
@@ -197,11 +201,13 @@ public class AccountManager implements Util{
 		if (!password.equals(account.getPassword())) {
 			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
 			System.out.println("확인 후 이용 바랍니다.");
+			System.out.println();
 		}
 		System.out.println("보내실 금액: ");
 		long money = SC.nextInt();
 		if (money > account.getBalance()) {
 			System.out.println("잔액이 부족하여 이체할 수 없습니다.");
+			System.out.println();
 		} else {
 			System.out.println("이체할 계좌 : ");
 			String number1 = SC.next();
@@ -209,13 +215,13 @@ public class AccountManager implements Util{
 
 			if(FindAccount_Nu(number1)==null) {
 				System.out.println("존재하지 않는 계좌입니다.");
+				System.out.println();
 			}
-
 			account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
 			account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
 			transactions[totalTrans++] = new Transaction("이체", money);	// 거래내역 추가
 			System.out.println("현재 잔고는 " + account.getBalance() + "원 입니다.\r");
-
+			System.out.println();
 		}
 
 	}

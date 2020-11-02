@@ -5,6 +5,7 @@ public class AccountMain implements Util {
 	public static void main(String[] args) {
 
 		AccountManager manager = AccountManager.getInstance();
+		Transaction t = Transaction.getInstance();
 
 		while(true) {
 			System.out.println(" 안녕하세요. 무엇을 도와드릴까요? ");
@@ -16,13 +17,11 @@ public class AccountMain implements Util {
 			System.out.println("5. 출금");
 			System.out.println("6. 이체");
 			System.out.println("7. 계좌 거래내역 조회");
-
 			System.out.println("============================ ");
-
 
 			int MenuSelect = SC.nextInt();
 
-			if(!(MenuSelect>=1 && MenuSelect<7)) {
+			if(!(MenuSelect>=1 && MenuSelect<=7)) {
 				System.out.println("메뉴의 선택이 옳바르지 않습니다.\n다시 선택해주세요");
 				continue;
 			}
@@ -46,7 +45,7 @@ public class AccountMain implements Util {
 				manager.transfer();			
 				break;
 			case 7:
-				manager.AccountCheck();
+				t.trans();
 				break;
 			}
 
