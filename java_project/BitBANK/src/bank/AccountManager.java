@@ -1,5 +1,7 @@
 package bank;
 
+import mybank.Account;
+
 public class AccountManager implements Util{
 
 	private String AccountNumber;	// 계좌번호
@@ -25,6 +27,31 @@ public class AccountManager implements Util{
 		return manager;
 	}
 
+	public boolean number(String passwordInput) {
+		int index = 0;
+		if(passwordInput.length()>=5) {
+			System.out.println("비밀번호를 4자리만 입력해주세요.");
+			return false;
+		} else if(passwordInput.length()==4){
+			for(int i=0; i<4; i++) {
+				char CharInput = passwordInput.charAt(i);
+				if(CharInput>=0x30&&CharInput<=0x39) {
+					index = (int)CharInput;
+				}
+				else {
+					System.out.println("잘못된 형식입니다. 비밀번호를 다시 입력해주세요.");
+					return false;
+				}
+			}
+			passwordInput = String.valueOf(index);
+			return true;
+		}
+		else {
+			System.out.println("비밀번호를 4자리 입력해주세요.");
+			return false;
+		}
+	}
+
 	//계좌 생성
 	public void CreateAccount() {
 		for (int i = 0; i<accountArray.length; i++) {
@@ -43,14 +70,23 @@ public class AccountManager implements Util{
 				String AccountName = SC.nextLine();
 				System.out.print("비밀번호 : "); //수정 필요 __숫자 4자리 입력
 				String password = SC.nextLine();
-				addInfor(new Account(AccountNumber, AccountName, password));
+				number(password);
+
+				if(number(password)==true) {
+					addInfor(new Account(AccountNumber, AccountName, password));
+					System.out.println("============================================================================");
+					System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
+					System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
+					System.out.println("========================================");
+					System.out.println("※ 위 내용을 확인 바랍니다. \r");
+					return;
+
+				}
+				else {
+					return;
+				}
 			}
-			System.out.println("============================================================================");
-			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
-			System.out.println("========================================");
-			System.out.println("※ 위 내용을 확인 바랍니다. \r");
-			return;
+
 		}
 		System.out.println("※ 계좌를 개설 하실 수 없습니다.");
 	}
