@@ -3,7 +3,7 @@ package bank;
 public class AccountMain implements Util {
 
 	// 계좌 메뉴 선택
-	public void startAccountMenu() {
+	public static void main(String[] args) {
 
 		AccountManager manager = AccountManager.getInstance();
 		Transaction t = Transaction.getInstance();
