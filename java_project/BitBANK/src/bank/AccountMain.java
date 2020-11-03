@@ -3,7 +3,7 @@ package bank;
 public class AccountMain implements Util {
 
 	public void startAccountMenu() {
-		LoanManager lm = new LoanManager();
+		BitBankManager bbm = new BitBankManager();
 		AccountManager manager = AccountManager.getInstance();
 		Transaction t = Transaction.getInstance();
 
@@ -49,7 +49,7 @@ public class AccountMain implements Util {
 				t.trans();
 				break;
 			case 8:
-				lm.startBankMenu();
+				bbm.startBankMenu();
 
 			}
 
