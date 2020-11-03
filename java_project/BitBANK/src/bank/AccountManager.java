@@ -149,7 +149,7 @@ public class AccountManager implements Util{
 
 	// 계좌 입금
 	public void saving() {
-		System.out.println("[===입  금===]");
+		System.out.println("[========입  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
@@ -181,7 +181,7 @@ public class AccountManager implements Util{
 
 	// 계좌 출금
 	public void withdraw() {
-		System.out.println("[===출  금===]");
+		System.out.println("[========출  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
@@ -216,7 +216,7 @@ public class AccountManager implements Util{
 
 	// 계좌 이체
 	public void transfer() {
-		System.out.println("[===이  체===]");
+		System.out.println("[========이  체========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
@@ -246,13 +246,14 @@ public class AccountManager implements Util{
 				if(FindAccount_Nu(number1)==null) {
 					System.out.println("존재하지 않는 계좌입니다.");
 					System.out.println();
+				} else {
+					account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
+					account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
+					transaction[totalTrans++] = new Transaction(number, "이체", money);	// 거래내역 추가
+					transaction[totalTrans++] = new Transaction(number1, "입금", money);	// 거래내역 추가
+					System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
+					System.out.println();
 				}
-				account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
-				account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
-				transaction[totalTrans++] = new Transaction(number, "이체", money);	// 거래내역 추가
-				transaction[totalTrans++] = new Transaction(number1, "입금", money);	// 거래내역 추가
-				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
-				System.out.println();
 			}
 
 		}
