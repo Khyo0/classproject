@@ -23,8 +23,9 @@ public class Transaction implements Util {
 
 	public Transaction(String type, long money){
 		Calendar c = Calendar.getInstance();
+		c.add(Calendar.MONTH, 1);
 		transactionDate = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DATE);	
-		transactionTime = c.get(Calendar.HOUR)+"시 "+c.get(Calendar.MINUTE)+"분 "+c.get(Calendar.SECOND)+"초";
+		transactionTime = c.get(Calendar.HOUR_OF_DAY)+"시 "+c.get(Calendar.MINUTE)+"분 "+c.get(Calendar.SECOND)+"초";
 		this.transType = type; //거래종류
 		this.amount = money; //거래금액
 	}
