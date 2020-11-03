@@ -5,7 +5,7 @@ public class AccountManager implements Util{
 	private String AccountNumber;	// 계좌번호
 	private String password;	// 계좌 비밀번호
 	private long balance;	// 잔액
-	private static Account accountArray[] = new Account[10]; // 계좌생성 배열
+	private static Account accountArray[] = new Account[100]; // 계좌생성 배열
 	private int cnt; //배열에 저장된 요소의 개수
 	private static Transaction transaction[] = new Transaction[100];	// 거래내역
 	private int totalTrans;	// 거래횟수
@@ -25,7 +25,7 @@ public class AccountManager implements Util{
 		return manager;
 	}
 
-	//계좌등록
+	//계좌 생성
 	public void CreateAccount() {
 		for (int i = 0; i<accountArray.length; i++) {
 			System.out.println("========================== ");
@@ -64,9 +64,6 @@ public class AccountManager implements Util{
 		return null;
 	}
 
-
-
-	// 계좌 조회 
 	// 계좌 조회 
 	public void AccountCheck() {
 
@@ -105,162 +102,6 @@ public class AccountManager implements Util{
 				return accountArray[i];
 		return null;
 	}
-
-
-	// 계좌 입금
-	public void saving() {
-		System.out.println("[===입  금===]");
-		System.out.print("계좌 번호: ");
-		String number = SC.next();
-		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(number) == null) {
-			System.out.println("존재하지 않는 계좌입니다.");
-			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
-			System.out.println();
-			return;
-		}
-		System.out.println("비밀번호 입력 : ");
-		String password = SC.next();
-		if (account != null) {
-			if (!password.equals(account.getPassword())) {
-				System.out.println("비밀번호가 일치하지 않습니다.");
-				System.out.println("확인 후 이용 바랍니다.");
-				System.out.println();
-			} else {
-				System.out.print("입금 금액 : ");
-				long money = SC.nextLong();
-				System.out.println();
-				account.setBalance(account.getBalance() + money);	// 잔액+입금 금액
-				transaction[totalTrans++] = new Transaction("입금", money);	// 거래내역 추가
-				System.out.println("계좌에 " + money + "원이 입금되었습니다.");
-				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
-				System.out.println();
-			}
-		}
-	}
-
-	// 계좌 출금
-	public void withdraw() {
-		System.out.println("[===출  금===]");
-		System.out.print("계좌 번호: ");
-		String number = SC.next();
-		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(number) == null) {
-			System.out.println("존재하지 않는 계좌입니다.");
-			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
-			System.out.println();
-			return;
-		}
-		System.out.println("비밀번호 입력 : ");
-		String password = SC.next();
-		if (!password.equals(account.getPassword())) {
-			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
-			System.out.println("확인 후 이용 바랍니다.");
-			System.out.println();
-		}
-		if (account != null) {
-			System.out.print("출금 금액: \r");
-			long money = SC.nextLong();
-			if (money > account.getBalance()) {
-				System.out.println("잔액이 부족하여 출금할 수 없습니다.");
-				System.out.println();
-			} else {
-				account.setBalance(account.getBalance() - money);	// 잔액-출금 금액
-				transaction[totalTrans++] = new Transaction("출금", money);	// 거래내역 추가
-				System.out.println("계좌에서 " + money + "원이 출금되었습니다.");
-				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
-				System.out.println();
-			}
-		}
-
-	}
-
-	// 계좌 이체
-	public void transfer() {
-		System.out.println("[===이  체===]");
-		System.out.print("계좌 번호: ");
-		String number = SC.next();
-		Account account = FindAccount_Nu(number);
-		if(FindAccount_Nu(number) == null) {
-			System.out.println("존재하지 않는 계좌입니다.");
-			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
-			System.out.println();
-			return;
-		}
-		System.out.println("비밀번호 입력 : ");
-		String password = SC.next();
-		if (!password.equals(account.getPassword())) {
-			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
-			System.out.println("확인 후 이용 바랍니다.");
-			System.out.println();
-		}
-		System.out.println("보내실 금액: ");
-		long money = SC.nextInt();
-		if (money > account.getBalance()) {
-			System.out.println("잔액이 부족하여 이체할 수 없습니다.");
-			System.out.println();
-		} else {
-			System.out.println("이체할 계좌 : ");
-			String number1 = SC.next();
-			Account account1 = FindAccount_Nu(number1);
-
-			if(FindAccount_Nu(number1)==null) {
-				System.out.println("존재하지 않는 계좌입니다.");
-				System.out.println();
-			}
-			account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
-			account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
-			transaction[totalTrans++] = new Transaction("이체", money);	// 거래내역 추가
-			System.out.println("현재 잔고는 " + account.getBalance() + "원 입니다.\r");
-			System.out.println();
-		}
-
-	}
-
-	//멤버쉽
-//	public void membership() {
-//		BankMemberDAO bank = new BankMemberDAO();
-//
-//		System.out.println("이름을 입력하세요 : ");
-//		String name = SC.nextLine();
-//		System.out.println("비밀번호를 입력하세요 : ");
-//		String password = SC.nextLine();
-//		if (!(bank.nameCheck(name)) || !(bank.passwordCheck(password))) {
-//			System.out.println("정보가 일치하지 않습니다.");
-//			System.out.println("다시 입력해주세요.");
-//		} else {
-//			for (int i = 0; i < cnt; i++) {
-//				Account account = accountArray[i];
-//				if (account.getAccountName() == name) {
-//					if (account.getBalance() < 10000 || account.getTotalTrans() < 3) {
-//						String membership = "Silver";
-//						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-//					} else if ((10000 <= account.getBalance() && account.getBalance() < 30000)
-//							|| (3 <= account.getBalance() && account.getBalance() < 6)) {
-//						String membership = "Gold";
-//						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-//					} else if ((30000 <= account.getBalance() && account.getBalance() < 60000)
-//							|| (6 <= account.getBalance() && account.getTotalTrans() < 9)) {
-//						String membership = "Dia";
-//						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-//					} else if ((60000 <= account.getBalance() && account.getBalance() >= 60000)
-//							|| (9 <= account.getBalance() && account.getTotalTrans() >= 9)) {
-//						String membership = "Platinum";
-//						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-//					}
-//
-//					break;
-//				}
-//
-//				else {
-//					System.out.println("비밀번호가 일치하지 않습니다.");
-//					System.out.println("다시 입력해 주십시오.");
-//				}
-//			}
-//		}
-//	}
-
-
 
 	//계좌 해지
 	// 사용자에게 계좌번호를 입력 받고 검색한 후 계좌 해지
@@ -306,8 +147,155 @@ public class AccountManager implements Util{
 		return index;
 	}
 
+	// 계좌 입금
+	public void saving() {
+		System.out.println("[===입  금===]");
+		System.out.print("계좌 번호: ");
+		String number = SC.next();
+		Account account = FindAccount_Nu(number);
+		if(FindAccount_Nu(number) == null) {
+			System.out.println("존재하지 않는 계좌입니다.");
+			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
+			return;
+		}
+		System.out.println("비밀번호 입력 : ");
+		String password = SC.next();
+		if (account != null) {
+			if (!password.equals(account.getPassword())) {
+				System.out.println("비밀번호가 일치하지 않습니다.");
+				System.out.println("확인 후 이용 바랍니다.");
+				System.out.println();
+			} else {
+				System.out.print("입금 금액 : ");
+				long money = SC.nextLong();
+				System.out.println();
+				account.setBalance(account.getBalance() + money);	// 잔액+입금 금액
+				transaction[totalTrans++] = new Transaction(number,"입금", money);	// 거래내역 추가
+				System.out.println("계좌에 " + money + "원이 입금되었습니다.");
+				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
+				System.out.println();
+			}
+		}
+	}
 
+	// 계좌 출금
+	public void withdraw() {
+		System.out.println("[===출  금===]");
+		System.out.print("계좌 번호: ");
+		String number = SC.next();
+		Account account = FindAccount_Nu(number);
+		if(FindAccount_Nu(number) == null) {
+			System.out.println("존재하지 않는 계좌입니다.");
+			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
+			return;
+		}
+		System.out.println("비밀번호 입력 : ");
+		String password = SC.next();
+		if (!password.equals(account.getPassword())) {
+			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
+			System.out.println("확인 후 이용 바랍니다.");
+			System.out.println();
+		} else{
+			System.out.print("출금 금액: \r");
+			long money = SC.nextLong();
+			if (money > account.getBalance()) {
+				System.out.println("잔액이 부족하여 출금할 수 없습니다.");
+				System.out.println();
+			} else {
+				account.setBalance(account.getBalance() - money);	// 잔액-출금 금액
+				transaction[totalTrans++] = new Transaction(number, "출금", money);	// 거래내역 추가
+				System.out.println("계좌에서 " + money + "원이 출금되었습니다.");
+				System.out.println("현재 잔액은 " + account.getBalance() + "원 입니다.\r");
+				System.out.println();
+			}
+		}
 
+	}
+
+	// 계좌 이체
+	public void transfer() {
+		System.out.println("[===이  체===]");
+		System.out.print("계좌 번호: ");
+		String number = SC.next();
+		Account account = FindAccount_Nu(number);
+		if(FindAccount_Nu(number) == null) {
+			System.out.println("존재하지 않는 계좌입니다.");
+			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
+			return;
+		}
+		System.out.println("비밀번호 입력 : ");
+		String password = SC.next();
+		if (!password.equals(account.getPassword())) {
+			System.out.println("입력하신 비밀번호가 일치하지 않습니다.");
+			System.out.println("확인 후 이용 바랍니다.");
+			System.out.println();
+		}
+		System.out.println("보내실 금액: ");
+		long money = SC.nextInt();
+		if (money > account.getBalance()) {
+			System.out.println("잔액이 부족하여 이체할 수 없습니다.");
+			System.out.println();
+		} else {
+			System.out.println("이체할 계좌 : ");
+			String number1 = SC.next();
+			Account account1 = FindAccount_Nu(number1);
+
+			if(FindAccount_Nu(number1)==null) {
+				System.out.println("존재하지 않는 계좌입니다.");
+				System.out.println();
+			}
+			account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
+			account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
+			transaction[totalTrans++] = new Transaction(number, "이체", money);	// 거래내역 추가
+			System.out.println("현재 잔고는 " + account.getBalance() + "원 입니다.\r");
+			System.out.println();
+		}
+
+	}
+
+	// 멤버십 생성 11.02 1차 수정 11.03 2차 수정
+	public String membership(String mbs) {
+
+		System.out.println("계좌주를 입력하세요 : ");
+		String accountName = SC.next();
+		Account account = FindAccount_Na(accountName);
+		if (FindAccount_Na(accountName) == null) {
+			System.out.println("존재하지 않는 이름입니다.");
+			System.out.println("이름을 다시 확인하시기 바랍니다.");
+			System.out.println();
+			return mbs;
+		} else if (account != null) {
+			for (int i = 0; accountArray[i] != null; i++)
+				if (account.getAccountName().equals(accountArray[i].getAccountName())) {
+					Account AccountCheck = accountArray[i];
+					if (AccountCheck != null) {
+						if (account.getBalance() < 10000 || totalTrans < 3) {
+							mbs = "Silver";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+						} else if (account.getBalance() < 30000 || totalTrans < 6) {
+							mbs = "Gold";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+						} else if (account.getBalance() < 60000 || totalTrans < 9) {
+							mbs = "Dia";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+						} else {
+							mbs = "Platinum";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+
+						}
+					}
+				}
+
+		}
+		return mbs;
+	}
 
 	//getter & setter 메서드
 	public String getAccountNumber() {
