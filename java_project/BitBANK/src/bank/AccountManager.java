@@ -117,8 +117,7 @@ public class AccountManager implements Util{
 		System.out.println("계좌번호의 비밀번호를 입력해주세요.");
 		String Password = SC.nextLine();
 
-		int index = searchIndex(Number, Password); 
-
+		int index = searchIndex(Number, Password);
 
 		if(index<0) {
 			System.out.println("찾으시는 계좌번호 "+Number+"의 정보가 존재하지 않습니다.");
@@ -149,7 +148,7 @@ public class AccountManager implements Util{
 
 	// 계좌 입금
 	public void saving() {
-		System.out.println("[===입  금===]");
+		System.out.println("[========입  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
@@ -181,7 +180,7 @@ public class AccountManager implements Util{
 
 	// 계좌 출금
 	public void withdraw() {
-		System.out.println("[===출  금===]");
+		System.out.println("[========출  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
@@ -216,7 +215,7 @@ public class AccountManager implements Util{
 
 	// 계좌 이체
 	public void transfer() {
-		System.out.println("[===이  체===]");
+		System.out.println("[========이  체========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
 		Account account = FindAccount_Nu(number);
