@@ -22,7 +22,7 @@ public class AccountMain implements Util {
 
 			int MenuSelect = SC.nextInt();
 
-			if(!(MenuSelect>=1 && MenuSelect<=7)) {
+			if(!(MenuSelect>=1 && MenuSelect<=8)) {
 				System.out.println("메뉴의 선택이 옳바르지 않습니다.\n다시 선택해주세요");
 				continue;
 			}
