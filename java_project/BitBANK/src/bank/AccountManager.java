@@ -271,15 +271,15 @@ public class AccountManager implements Util{
 				if (account.getAccountName().equals(accountArray[i].getAccountName())) {
 					Account AccountCheck = accountArray[i];
 					if (AccountCheck != null) {
-						if (account.getBalance() < 10000 || totalTrans < 3) {
+						if (account.getBalance() < 10000 || totalTrans < 1) {
 							mbs = "Silver";
 							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
 							return mbs;
-						} else if (account.getBalance() < 30000 || totalTrans < 6) {
+						} else if (account.getBalance() < 30000 || totalTrans < 2) {
 							mbs = "Gold";
 							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
 							return mbs;
-						} else if (account.getBalance() < 60000 || totalTrans < 9) {
+						} else if (account.getBalance() < 60000 || totalTrans < 3) {
 							mbs = "Dia";
 							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
 							return mbs;
