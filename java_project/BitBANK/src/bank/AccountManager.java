@@ -25,7 +25,7 @@ public class AccountManager implements Util{
 		return manager;
 	}
 
-	//계좌등록
+	//계좌 생성
 	public void CreateAccount() {
 		for (int i = 0; i < accountArray.length; i++) {
 			System.out.println("========================== ");
@@ -55,7 +55,7 @@ public class AccountManager implements Util{
 		System.out.println("※ 계좌를 개설 하실 수 없습니다.");
 	}
 
-	// 검색된 계좌 객체를 반환하는 메서드
+	// 비밀번호 검색
 	public Account FindAccount_Nu(String AccountNumber) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountNumber().equals(AccountNumber)) //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하면
@@ -112,11 +112,38 @@ public class AccountManager implements Util{
 		}
 	} 
 
+	// 계좌주 검색
 	public static Account FindAccount_Na(String AccountName) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountName().equals(AccountName))
 				return accountArray[i];
 		return null;
+	}
+
+	// 계좌 해지
+	public void delete() {
+		System.out.println("[========계 좌 삭 제========]");
+		System.out.print("계좌 번호: ");
+		String number = SC.next();
+		Account account = FindAccount_Nu(number);
+		if(FindAccount_Nu(number) == null) {
+			System.out.println("존재하지 않는 계좌입니다.");
+			System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
+			System.out.println();
+			return;
+		}
+		System.out.println("비밀번호 입력 : ");
+		String password = SC.next();
+		if (account != null) {
+			if (!password.equals(account.getPassword())) {
+				System.out.println("비밀번호가 일치하지 않습니다.");
+				System.out.println("확인 후 이용 바랍니다.");
+				System.out.println();
+			} else {
+
+				//
+			}
+		}
 	}
 
 	// 계좌 입금

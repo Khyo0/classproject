@@ -2,13 +2,14 @@ package bank;
 
 public class AccountMain implements Util {
 
-	public static void main(String[] args) {
+	// 계좌 메뉴 선택
+	public void startAccountMenu() {
 
 		AccountManager manager = AccountManager.getInstance();
 		Transaction t = Transaction.getInstance();
 
 		while(true) {
-			System.out.println(" 안녕하세요. 무엇을 도와드릴까요? ");
+			System.out.println(" 무엇을 도와드릴까요? ");
 			System.out.println("============================ ");
 			System.out.println("1. 계좌 생성");
 			System.out.println("2. 계좌 조회");
@@ -22,7 +23,7 @@ public class AccountMain implements Util {
 			int MenuSelect = SC.nextInt();
 
 			if(!(MenuSelect>=1 && MenuSelect<=7)) {
-				System.out.println("메뉴의 선택이 옳바르지 않습니다.\n다시 선택해주세요");
+				System.out.println("메뉴의 선택이 옳바르지 않습니다.\n다시 선택해주세요.");
 				continue;
 			}
 			switch (MenuSelect) {
@@ -33,7 +34,8 @@ public class AccountMain implements Util {
 				manager.AccountCheck();
 				break;
 			case 3:
-				manager.membership();
+				//manager.membership();
+				break;
 			case 4:
 				manager.saving();
 				break;
