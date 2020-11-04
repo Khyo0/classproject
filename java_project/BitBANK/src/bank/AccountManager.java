@@ -1,5 +1,7 @@
 package bank;
 
+import java.util.StringTokenizer;
+
 public class AccountManager implements Util{
 
 	private String AccountNumber;	// 계좌번호
@@ -35,6 +37,9 @@ public class AccountManager implements Util{
 			System.out.println("계좌 번호 :  ");
 			String AccountNumber = SC.next();
 			SC.nextLine();
+			if((token(AccountNumber) == false)){
+				return;
+			}
 			if (FindAccount_Nu(AccountNumber) != null) { // 계좌번호가 중복될시
 				System.out.println("※ 계좌번호가 중복됩니다. ");
 				System.out.println("※ 다시 확인하시기 바랍니다. ");
@@ -123,6 +128,41 @@ public class AccountManager implements Util{
 		return null;
 	}
 
+	// 계좌번호 입력
+	public boolean token(String numberInput) {
+		if(!(numberInput.length()==19)){
+			System.out.println("잘못된 형식의 계좌번호 입니다.");
+			System.out.println("계좌번호를 (****-****-****-****)형식으로 입력해주세요.");
+			System.out.println();
+			return false;
+		}
+		StringTokenizer a1 = new StringTokenizer(numberInput, "-");
+
+		if(a1.countTokens()==4) {
+			int index = 0;
+			for(int i=0; i<4; i++) {
+
+				char CharInput = numberInput.charAt(i);
+				if(CharInput>=0x30&&CharInput<=0x39) {
+					index = (int)CharInput;
+				} else {
+					System.out.println("계좌번호를 (****-****-****-****)형식으로 입력해주세요.");
+					System.out.println("*는 숫자입니다.");
+					return false;
+				}
+
+			}
+			numberInput = String.valueOf(index);
+			return true;
+		}	
+
+		System.out.println("-를 포함해주세요.");
+		System.out.println("잘못된 형식의 계좌번호 입니다.");
+		System.out.println("계좌번호를 (****-****-****-****)형식으로 입력해주세요.");
+		System.out.println();
+		return false;
+	}
+
 	// 계좌 조회 
 	public void AccountCheck() {
 
@@ -173,11 +213,14 @@ public class AccountManager implements Util{
 		SC.nextLine();
 		System.out.println("삭제하고자 하는 정보의 계좌번호를 입력해주세요.");
 		String Number = SC.nextLine();
+		SC.nextLine();
+		if((token(Number) == false)){
+			return;
+		}
 		System.out.println("계좌번호의 비밀번호를 입력해주세요.");
 		String Password = SC.nextLine();
 
 		int index = searchIndex(Number, Password); 
-
 		if(index<0) {
 			System.out.println("찾으시는 계좌번호 "+Number+"의 정보가 존재하지 않습니다.");
 			System.out.println("메뉴로 이동합니다.");
@@ -209,6 +252,9 @@ public class AccountManager implements Util{
 		System.out.println("[========입  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
+		if((token(number) == false)){
+			return;
+		}
 		Account account = FindAccount_Nu(number);
 		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
@@ -241,6 +287,9 @@ public class AccountManager implements Util{
 		System.out.println("[========출  금========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
+		if((token(number) == false)){
+			return;
+		}
 		Account account = FindAccount_Nu(number);
 		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
@@ -276,6 +325,9 @@ public class AccountManager implements Util{
 		System.out.println("[========이  체========]");
 		System.out.print("계좌 번호: ");
 		String number = SC.next();
+		if((token(number) == false)){
+			return;
+		}
 		Account account = FindAccount_Nu(number);
 		if(FindAccount_Nu(number) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
@@ -298,6 +350,9 @@ public class AccountManager implements Util{
 			} else {
 				System.out.println("이체할 계좌 : ");
 				String number1 = SC.next();
+				if((token(number1) == false)){
+					return;
+				}
 				Account account1 = FindAccount_Nu(number1);
 
 				if(FindAccount_Nu(number1)==null) {
@@ -316,39 +371,45 @@ public class AccountManager implements Util{
 		}
 	}
 
-	//멤버십 생성
-	public String membership(String membership) {
+	// 멤버십 생성 11.04 수정 totaltrans 횟수 바꿈
+	public String membership(String mbs) {
 
 		System.out.println("계좌주를 입력하세요 : ");
 		String accountName = SC.next();
-
 		Account account = FindAccount_Na(accountName);
 		if (FindAccount_Na(accountName) == null) {
 			System.out.println("존재하지 않는 이름입니다.");
 			System.out.println("이름을 다시 확인하시기 바랍니다.");
-			System.out.println();				
+			System.out.println();
+			return mbs;
 		} else if (account != null) {
-			for (int i = 0; accountArray[i] != null; i++) 
+			for (int i = 0; accountArray[i] != null; i++)
 				if (account.getAccountName().equals(accountArray[i].getAccountName())) {
-					Account AccountCheck = accountArray[i];					
+					Account AccountCheck = accountArray[i];
 					if (AccountCheck != null) {
-						if (account.getBalance() < 10000 || totalTrans < 0) {
-							membership = "Silver";
-							System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-						} else if (account.getBalance() < 30000 || totalTrans < 1) {
-							membership = "Gold";
-							System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
-						} else if (account.getBalance() < 60000 || totalTrans < 2) {
-							membership = "Dia";
-							System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+						if (account.getBalance() < 10000 || totalTrans < 1) {
+							mbs = "Silver";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+						} else if (account.getBalance() < 30000 || totalTrans < 2) {
+							mbs = "Gold";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+						} else if (account.getBalance() < 60000 || totalTrans < 3) {
+							mbs = "Dia";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
 						} else {
-							membership = "Platinum";
-							System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");	
+							mbs = "Platinum";
+							System.out.println(account.getAccountName() + "님의 등급은 " + mbs + "입니다.");
+							return mbs;
+
 						}
-					}						
-				}			
-		}		
-		return membership;
+					}
+				}
+
+		}
+		return mbs;
 	}
 
 	//getter & setter 메서드

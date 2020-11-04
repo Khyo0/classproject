@@ -27,7 +27,7 @@ public class Transaction implements Util {
 		c.add(Calendar.MONTH, 1);
 		transactionDate = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
 		transactionTime = c.get(Calendar.HOUR_OF_DAY) + "시 " + c.get(Calendar.MINUTE) + "분 " + c.get(Calendar.SECOND)
-				+ "초";
+		+ "초";
 		this.AccountNumber = AccountNumber; // 계좌번호
 		this.transType = type; // 거래종류
 		this.amount = money; // 거래금액
@@ -39,6 +39,9 @@ public class Transaction implements Util {
 		System.out.println("[=====거래내역 조회=====]");
 		System.out.print("계좌 번호: ");
 		String Accountnumber = SC.next();
+		if((manager.token(Accountnumber) == false)){
+			return;
+		}
 		Account account = manager.FindAccount_Nu(Accountnumber);
 		if (manager.FindAccount_Nu(Accountnumber) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
@@ -61,7 +64,7 @@ public class Transaction implements Util {
 					if (ts[i].AccountNumber.equals(Accountnumber)) {
 						System.out.println(
 								"거래일: " + ts[i].getTransactionDate() + "\t거래시간: " + ts[i].getTransactionTime()
-										+ "\t" + ts[i].getAmount() + "원\t" + ts[i].getTransType());
+								+ "\t" + ts[i].getAmount() + "원\t" + ts[i].getTransType());
 					}
 				}
 				System.out.println("------------------------------------------------------");
