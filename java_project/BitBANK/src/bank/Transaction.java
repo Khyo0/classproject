@@ -14,6 +14,7 @@ public class Transaction implements Util {
 
 	// 생성자 호출 제한
 	private Transaction(int i) {
+
 	}
 
 	// 외부에서 참조변수를 받을 수 있는 메서드
@@ -35,9 +36,12 @@ public class Transaction implements Util {
 	public void trans() {
 		AccountManager manager = AccountManager.getInstance();
 
-		System.out.println("[========거래내역 조회========]");
+		System.out.println("[=====거래내역 조회=====]");
 		System.out.print("계좌 번호: ");
 		String Accountnumber = SC.next();
+		if((manager.token(Accountnumber) == false)){
+			return;
+		}
 		Account account = manager.FindAccount_Nu(Accountnumber);
 		if (manager.FindAccount_Nu(Accountnumber) == null) {
 			System.out.println("존재하지 않는 계좌입니다.");
@@ -59,8 +63,8 @@ public class Transaction implements Util {
 				for (int i = 0; i < manager.getTotalTrans(); i++) {
 					if (ts[i].AccountNumber.equals(Accountnumber)) {
 						System.out.println(
-								"거래일 : " + ts[i].getTransactionDate() + "     거래시간 : " + ts[i].getTransactionTime()
-										+ "     " + ts[i].getAmount() + "원    " + ts[i].getTransType());
+								"거래일: " + ts[i].getTransactionDate() + "\t거래시간: " + ts[i].getTransactionTime()
+										+ "\t" + ts[i].getAmount() + "원\t" + ts[i].getTransType());
 					}
 				}
 				System.out.println("------------------------------------------------------");

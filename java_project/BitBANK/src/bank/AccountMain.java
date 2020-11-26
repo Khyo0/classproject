@@ -1,8 +1,11 @@
 package bank;
 
+import java.util.InputMismatchException;
+
 public class AccountMain implements Util {
 
 	public void startAccountMenu() {
+
 		BitBankManager bbm = new BitBankManager();
 		AccountManager manager = AccountManager.getInstance();
 		Transaction t = Transaction.getInstance();
@@ -20,12 +23,30 @@ public class AccountMain implements Util {
 			System.out.println("8. 이전 메뉴로 돌아가기");
 			System.out.println("============================ ");
 
-			int MenuSelect = SC.nextInt();
+			System.out.println("\n>> ");
 
-			if(!(MenuSelect>=1 && MenuSelect<=8)) {
-				System.out.println("메뉴의 선택이 옳바르지 않습니다.\n다시 선택해주세요");
+			int MenuSelect = 0;
+
+			try {
+
+				MenuSelect = SC.nextInt();
+
+				if(!(MenuSelect>=1 && MenuSelect<=8)) {
+					BadInputException e = new BadInputException(String.valueOf(MenuSelect));
+					throw e;
+				}
+			} catch (InputMismatchException | BadInputException e) {
+				System.out.println("메뉴입력이 잘못되었습니다. \n다시 선택해주세요 \r");
+				SC.nextLine();
+				continue;
+			} catch (Exception e1) {
+				System.out.println("메뉴입력이 잘못되었습니다. \n다시 선택해주세요 \r");
+				SC.nextLine();
 				continue;
 			}
+
+
+
 			switch (MenuSelect) {
 			case 1:
 				manager.CreateAccount();
@@ -49,8 +70,7 @@ public class AccountMain implements Util {
 				t.trans();
 				break;
 			case 8:
-				bbm.startBankMenu();
-
+				return;
 			}
 
 		}

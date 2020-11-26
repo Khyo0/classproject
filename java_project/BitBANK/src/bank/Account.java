@@ -1,42 +1,49 @@
 package bank;
 
-public class Account {
+public class Account implements Util {
 
 	private String AccountNumber; // 계좌번호
-	private String AccountName;         // 이름
-	private String password;     // 계좌 비밀번호
-	private long balance;		  // 잔액
+	private String AccountName; // 이름
+	private String password; // 계좌 비밀번호
+	private long balance; // 잔액
 	private static Account AccountArray[] = new Account[100];
-	private int totalTrans;	// 거래횟수
+	private int totalTrans; // 거래횟수
 
-	//생성자	
+	//생성자
 	public Account (String AccountNumber, String AccountName, String password) {      
-	      this.AccountNumber = AccountNumber;
-	      this.AccountName = AccountName;
-	      this.password = password;
-	   }
+		this.AccountNumber = AccountNumber;
+		this.AccountName = AccountName;
+		this.password = password;
+	}
 
-	@Override
-	   public String toString() {
-	      // TODO Auto-generated method stub
-	      return super.toString();
-	   } 
-	
+	public Account() {
+
+	}
+
 	//getter & setter 메서드
+
+	public int getTotalTrans() {
+		return totalTrans;
+	}
+
+	public void setTotalTrans(int totalTrans) {
+		this.totalTrans = totalTrans;
+	}
+
 	public String getAccountNumber() {
 		return AccountNumber;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		AccountNumber = accountNumber;
+	public void setAccountNumber(String AccountNumber) {
+		this.AccountNumber = AccountNumber;
 	}
 
 	public String getAccountName() {
 		return AccountName;
 	}
 
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
+	public void setAccountName(String AccountName) {
+		this.AccountName = AccountName;
 	}
 
 	public String getPassword() {
@@ -55,20 +62,11 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public static Account[] getAccountArray() {
-		return AccountArray;
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 
-	public static void setAccountArray(Account[] accountArray) {
-		AccountArray = accountArray;
-	}
-
-	public int getTotalTrans() {
-		return totalTrans;
-	}
-
-	public void setTotalTrans(int totalTrans) {
-		this.totalTrans = totalTrans;
-	}
-	
 }

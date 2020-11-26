@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Low game</title>
+    <script>
+        
+        var count=0;
+        
+        function guess(var userData){
+            if(userData<number){
+                alert('HIGH');
+                count++;
+                ct(count);
+            } else if(userData>number){
+                alert('LOW');
+                count++;
+                ct(count);
+            } else{
+                alert('CONGRATULATION!')
+            }
+            return count;
+        }
+        
+        function ct(count){
+            if(count>10){
+                alert('횟수 초과');
+                count=0;
+            }
+            return count;
+        }
+        
+        function input(var number){
+            for(var i=0; i<=count; i++){
+                var userData = prompt('숫자를 입력해주세요.');
+                var user = guess(userData);
+                alert(user);
+            }
+        }
+        
+        setTimeout(input(){
+            alert('TimeOut');
+        }, 1000);
+        
+        // 하이로우 게임 
+        //: 숫자 맞추기 높다 낮다 판별해서 
+        //: 몇번째에 맞추는지 카운팅
+        //: 미션 성공의 조건은 : 10회 이전, 30초 이전에 맞추기
+        var number = Math.random()*100; // 0~99.0000000
+        number = Math.floor(number);
+        
+        setTimeout();
+        input(number);
+        
+       
+    
+    </script>
+</head>
+
+<body>
+  
+    
+    
+    <script>
+    
+    
+    
+    </script>
+    
+    
+    
+ 
+    
+    
+</body>
+</html>
